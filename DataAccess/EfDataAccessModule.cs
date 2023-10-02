@@ -14,6 +14,7 @@ namespace DataAccess
         public static void AddScopeDAL(this IServiceCollection services)
         {
             services.AddScoped<ITrainDal, EfTrainDal>();
+            services.AddScoped<IReservationDal, EfReservationDal>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using DataAccess;
+using DataAccess.Concrete.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Business
         {
             services.AddScopeDAL();
             services.AddScoped<ITrainService, TrainManager>();
+            services.AddScoped<IReservationService, ReservationManager>();
+            services.AddScoped<Context>();
         }
     }
 }
