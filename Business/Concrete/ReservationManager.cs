@@ -45,49 +45,5 @@ namespace Business.Concrete
             _reservationDal.Update(entity);
         }
 
-        public static ResultReservationDto MakeReservation(ReservationDto request)
-        {
-            var result = new ResultReservationDto();
-            var detailResidental = new List<ResidentalDetailDto>();
-            var countOfPassengers = request.CountOfPassenger;
-
-            foreach (var wagon in request.Train.Wagons)
-            {
-                if (countOfPassengers == 0)
-                {
-                    break;
-                }
-
-                var countOfEmptySeat = wagon.Capacity - wagon.CountOfOccupiedSeat;
-                var countPassenger = Math.Min(countOfPassengers, countOfEmptySeat);
-
-                if (!request.IsPassengerAnotherWagon && detailResidental.Any())
-                {
-                    result.IsMakeReservation = false;
-                    result.DetailOfResidental = new List<ResidentalDetailDto>();
-                    return result;
-                }
-
-                if (countPassenger > 0 && countOfEmptySeat >= countPassenger && (double)wagon.CountOfOccupiedSeat / wagon.Capacity < 0.7)
-                {
-                    detailResidental.Add(new ResidentalDetailDto { WagonName = wagon.Name, CountOfPassenger = countPassenger });
-                    countOfPassengers -= countPassenger;
-                    wagon.CountOfOccupiedSeat += countPassenger;
-                }
-            }
-
-            if (countOfPassengers == 0)
-            {
-                result.IsMakeReservation = true;
-                result.DetailOfResidental = detailResidental;
-            }
-            else
-            {
-                result.IsMakeReservation = false;
-                result.DetailOfResidental = new List<ResidentalDetailDto>();
-            }
-
-            return result;
-        }
     }
 }
