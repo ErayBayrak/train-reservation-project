@@ -15,9 +15,8 @@ namespace WebAPI.Controllers
     public class ReservationsController : ControllerBase
     {
         IReservationService _reservationService;
-        Context _context;
 
-        public ReservationsController(IReservationService reservationService, Context context)
+        public ReservationsController(IReservationService reservationService)
         {
             _reservationService = reservationService;
             _context = context;
