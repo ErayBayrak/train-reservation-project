@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         public ReservationsController(IReservationService reservationService)
         {
             _reservationService = reservationService;
-            _context = context;
+            
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
