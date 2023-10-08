@@ -98,8 +98,6 @@ namespace WebAPI.Controllers
 
             foreach (var wagon in availableWagons)
             {
-                var availableSeats = wagon.Capacity - wagon.CountOfOccupiedSeat;
-                var passengersToPlace = Math.Min(reservationCount, availableSeats);
                 var response = new ReservationResponseDto
                 {
                     IsMakeReservation = true,
@@ -108,12 +106,12 @@ namespace WebAPI.Controllers
                 new ReservationDetailDto
                 {
                     WagonName = wagon.Name,
-                    CountOfPassengers = passengersToPlace
+                    CountOfPassengers = reservationCount
                 }
             }
                 };
                 responses.Add(response);
-                reservationCount -= passengersToPlace;
+                reservationCount -= reservationCount;
             }
 
             return responses;
